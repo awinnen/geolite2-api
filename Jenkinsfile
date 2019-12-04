@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('build') {
 			steps {
-				sh 'docker build -f Geolite2-Api\Dockerfile -t geolite2-api .'
+				sh 'docker build -f Geolite2-Api/Dockerfile -t geolite2-api .'
 			}
         }
 		stage('deploy') {
