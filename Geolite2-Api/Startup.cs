@@ -10,6 +10,7 @@ using Geolite2_Api.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -53,7 +54,7 @@ namespace Geolite2_Api
 			}
 
 			app.UseHttpsRedirection();
-
+			app.UseForwardedHeaders(GetHeaderOptions());
 			app.UseRouting();
 
 			app.UseAuthorization();
@@ -62,6 +63,17 @@ namespace Geolite2_Api
 			{
 				endpoints.MapControllers();
 			});
+		}
+
+		private ForwardedHeadersOptions GetHeaderOptions()
+		{
+			var fordwardedHeaderOptions = new ForwardedHeadersOptions
+			{
+				ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+			};
+			fordwardedHeaderOptions.KnownNetworks.Clear();
+			fordwardedHeaderOptions.KnownProxies.Clear();
+			return fordwardedHeaderOptions;
 		}
 	}
 }
