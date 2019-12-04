@@ -53,7 +53,6 @@ namespace Geolite2_Api
 				app.UseDeveloperExceptionPage();
 			}
 
-			app.UseHttpsRedirection();
 			app.UseForwardedHeaders(GetHeaderOptions());
 			app.UseRouting();
 
@@ -69,7 +68,7 @@ namespace Geolite2_Api
 		{
 			var fordwardedHeaderOptions = new ForwardedHeadersOptions
 			{
-				ForwardedHeaders = ForwardedHeaders.XForwardedHost | ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
 			};
 			fordwardedHeaderOptions.KnownNetworks.Clear();
 			fordwardedHeaderOptions.KnownProxies.Clear();
