@@ -29,9 +29,11 @@ namespace Geolite2_Api.Controllers
 		{
 			try
 			{
+				ip ??= Request.HttpContext.Connection.RemoteIpAddress.ToString();
+				_logger.LogInformation("Requesting Lookup for " + ip);
 				var result = await _mediatr.Send(new IpLookupQuery()
 				{
-					IpAddress = ip ?? Request.HttpContext.Connection.RemoteIpAddress.ToString()
+					IpAddress = ip
 				});
 				return Ok(result);
 			}
